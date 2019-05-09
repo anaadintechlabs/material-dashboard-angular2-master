@@ -1,0 +1,312 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+         
+          <div class="col-md-12">
+              <div class="card card-plain">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title mt-0">Category</h4>
+                      <p class="card-category"> Added Category will be shown to user While uploading ad</p>
+                    <button type="button" (click)="addCategory()" class="btn btn-warning text-right">Add Category</button>                                     
+                    </div>
+
+
+                  <div *ngIf="action=='list'" class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-hover">
+                              <thead class="catTblHead">
+                                  <th>
+                                      Category Code
+                                  </th>
+                                  <th>
+                                      Name
+                                  </th>
+                                  <th>
+                                      Description
+                                  </th>
+                                  <th>
+                                      Add Sub Catagory/Attribute
+                                  </th>
+                                  
+                              </thead>
+                              <tbody>
+                                  
+                                  <tr *ngFor="let category of categoryList">
+                                      <td>
+                                          <a class="catCodeBtn" type="button" (click)="getAllSubCategoryAndAttributeOfCategoryCode(category)">
+                                          {{category.catCode}}
+                                          </a>
+                                      </td>
+                                      <td>
+                                          {{category.catName}}
+                                      </td>
+                                      <td>
+                                          {{category.catDesc}}
+                                      </td>
+                                      <td>
+                                <button (click)="addSubcategory(category.catCode)" title=" Add Sub Category" class="btn add subCatBtn" type="submit">
+									<i class="fa fa-plus-circle"></i>
+                                </button>
+                                 <button (click)="addAttribute(category.catCode)" title=" Add Attributes" class="btn add attrBtn" type="submit">
+									<i class="fa fa-plus-circle"></i>
+								</button>
+                                      </td>
+                                      
+                                  </tr>
+                               
+                                                                  
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+
+            <div *ngIf="action=='add' || action=='view'" class="card-body">
+                <button type="button" (click)="backButton()" class="btn btn-warning">Back</button> 
+                      <form role="form" [formGroup]="category" (ngSubmit)="categoryFormOnSubmit(action)">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="catCode" placeholder="Category code">
+                                  </mat-form-field>
+                                   <mat-error *ngIf="submitted && category.controls.catCode.invalid">This field is required</mat-error>
+                              </div>
+                              <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput  formControlName="catName" placeholder="Category Name" type="text">
+                                  </mat-form-field>    
+                                  <mat-error *ngIf="submitted && category.controls.catName.invalid">This field is required</mat-error>                          
+                              </div>
+                          </div>
+                          
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput formControlName="catDesc" placeholder="Description" type="text">
+                                </mat-form-field>
+                                <mat-error *ngIf="submitted && category.controls.catDesc.invalid">This field is required</mat-error>                          
+                              </div>
+
+                               <div class="col-md-6">                  
+                                    <mat-checkbox type='checkbox' formControlName="allowBidding" >Allow Bidding for this Category ?</mat-checkbox>      
+                              </div>
+                          </div>
+
+
+
+                          <button *ngIf="action=='add'" mat-raised-button type="submit" class="btn btn-danger pull-right">Create Category</button>
+                          <div class="clearfix"></div>
+                      </form>
+
+
+                     <div *ngIf="action=='view'  " class="card-body">
+                      <div *ngIf="subCategoryList && subCategoryList.length>0" class="table-responsive">
+                          <table class="table table-hover">
+                              <thead class="subCatTblHead">
+                                  <th>
+                                      SubCategory Code
+                                  </th>
+                                  <th>
+                                     SubCategory  Name
+                                  </th>
+                                  <th>
+                                      Description
+                                  </th>
+                                
+                                  
+                              </thead>
+                              <tbody>
+                                  
+                                  <tr *ngFor="let category of subCategoryList">
+                                      <td>
+                                         {{category.catCode}}
+                                      </td>
+                                      <td>
+                                          {{category.catName}}
+                                      </td>
+                                      <td>
+                                          {{category.catDesc}}
+                                      </td>
+                                  
+                                      
+                                  </tr>
+                               
+                                                                  
+                              </tbody>
+                          </table>
+                      </div>
+
+
+                       <div  *ngIf="attributeList && attributeList.length>0" class="table-responsive">
+                          <table class="table table-hover">
+                              <thead class="attrTblHead">
+                                  <th>
+                                      Attribute Name
+                                  </th>
+                                  <th>
+                                     Attribute   Type
+                                  </th>
+                                    <th>
+                                     Attribute   Value
+                                  </th>
+                                  
+                                
+                                  
+                              </thead>
+                              <tbody>
+                                  
+                                  <tr *ngFor="let attribute of attributeList">
+                                      <td>
+                                         {{attribute.attributeName}}
+                                      </td>
+                                      <td>
+                                          {{attribute.attributeType}}
+                                      </td>
+                                      <td>
+                                          {{attribute.attributeValue}}
+                                      </td>
+                                  
+                                      
+                                  </tr>
+                               
+                                                                  
+                              </tbody>
+                          </table>
+                      </div>
+
+                  </div>
+
+
+                  
+
+                 </div>
+
+
+
+                 <div *ngIf="action=='addSub'" class="card-body">
+                <button type="button" (click)="backButton()" class="btn btn-warning">Back</button> 
+                     <form role="form" [formGroup]="subCategory" (ngSubmit)="subCategoryFormOnSubmit(action)"  >
+                          <div class="row">
+                              <fieldset formGroupName="parentCategory">
+                              <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input formControlName="catCode" matInput disabled placeholder="Parent Category code">
+                                 </mat-form-field>
+                              </div> 
+                              </fieldset>
+
+                              <div class="col-md-6">
+                                   <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="catCode" placeholder="Category Code" type="text">
+                                    <mat-error *ngIf="submitted && subCategory.controls.catCode.invalid">This field is required</mat-error>
+                                 </mat-form-field> 
+                              </div>
+                              <div class="col-md-6">
+                                
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="catName" matInput placeholder="Category Name">
+                                    <mat-error *ngIf="submitted && subCategory.controls.catName.invalid">This field is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input  formControlName="catDesc" matInput placeholder="Description" type="text">
+                                  <mat-error *ngIf="submitted && subCategory.controls.catDesc.invalid">This field is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">                  
+                                    <mat-checkbox type='checkbox' formControlName="modelAvailable"  (change)='modelChange($event.checked)' >Leaf Category Available?</mat-checkbox>      
+                              </div>
+                          </div>
+
+                            <div *ngIf="modelAvailable" class="row">
+
+                            <!-- <button type="button" (click)="addNewModel()" class="btn btn-warning">Add More Model</button>  -->
+                              <div class="col-md-4">    
+                                <input class="fieldModel" formControlName="models"  matInput placeholder="Model" type="text">   
+                               <mat-error *ngIf="invalidModel">This field is invalid</mat-error>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" (click)="addNewModel()" class="btn btn-warning">Add More Model</button> 
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="row">
+                                    <div class="container">
+                                        <div class="col-md-12">
+                                            <div class="stylModel" *ngFor="let model of modelList">
+                                                {{model}} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+  
+          
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Create Sub Category</button>
+                          <div class="clearfix"></div>
+                      </form>
+
+                 </div>
+
+
+
+
+
+
+
+
+            <div *ngIf="action=='addAttr'" class="card-body">
+                <button type="button" (click)="backButton()" class="btn btn-warning">Back</button> 
+                     <form role="form" [formGroup]="catAttribute" (ngSubmit)="attributeFormOnSubmit(action)" >
+                          <div class="row">
+                             <div class="col-md-6">
+                                   <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="attributeName" placeholder="Attribute Name" type="text">
+                                    <mat-error *ngIf="submitted && catAttribute.controls.attributeName.invalid">This field is required</mat-error>
+                                 </mat-form-field> 
+                              </div>
+                              <div class="col-md-6">
+                                <mat-select required class="example-full-width" (selectionChange)="getSelectedAttribue($event.value)" placeholder="Attribute Type" formControlName="attributeType">
+                                    <mat-option  value="input">Input Field</mat-option>
+                                    <mat-option  value="select">Drop Down box</mat-option>
+                                    <mat-option  value="checkbox">Check Box</mat-option>
+                                    <mat-option  value="radio">Radio Button</mat-option>
+                                </mat-select>
+                              </div>
+          
+                              
+
+                             
+
+                              <div *ngIf="selected!='input'" class="col-md-6">    
+                                   <button type="button" (click)="addNewKey()" class="btn btn-warning">Add More Key</button>                            
+                                <mat-form-field class="example-full-width">
+                                    <input  formControlName="attributeValue" matInput placeholder="Attribute Key">
+                                    <mat-error *ngIf="invalidKey">This field is invalid</mat-error>
+                                </mat-form-field>
+                                <div class="stylAttrKey" *ngFor="let key of keyList">
+                                {{key}}
+                            </div>
+                              </div>
+                          </div>
+                          
+                        
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Add Attribute</button>
+                          <div class="clearfix"></div>
+                      </form>
+
+                 </div>
+
+
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

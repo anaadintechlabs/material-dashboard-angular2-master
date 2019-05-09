@@ -1,0 +1,36 @@
+.catCodeBtn{
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #827ccb;
+    padding: 6px 30px;
+    border: none;
+    background-color: #8781c9;
+    color: #ffffff !important;
+}
+.subCatTblHead,.attrTblHead,.catTblHead{
+    background: linear-gradient(60deg, #8781c9, #756dd4);
+    color: #fff;
+    border-radius: 16px !important;
+    /* border: 42px #000; */
+}
+.subCatBtn,.attrBtn{
+    background-color: #99d420;
+    padding: 4%;
+    border-radius: 50%;
+}
+.subCatBtn:hover,.attrBtn:hover
+{
+    background-color: #8781c9;
+}
+.fieldModel{
+    border-bottom: 1px solid #000;
+    padding: 10px;
+}
+.stylModel,.stylAttrKey{
+    color: #000;
+    padding: 5px 11px;
+    border: 1px solid;
+    margin: 2px;
+    display: inline-block;
+}
+.table{
+    text-align: center;
+}

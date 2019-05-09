@@ -1,0 +1,130 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Add Product</h4>
+                        <p class="card-category">Please specify necessary details</p>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" [formGroup]="product" (ngSubmit)="productFormOnSubmit(action)" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Select an Category</mat-label>
+                                        <mat-select (selectionChange)="getAllSubCategoryAndAttributeOfCategoryCode($event.value)" formControlName="category" required >
+                                          <mat-option [value]="category" *ngFor="let category of categoryList">{{category.catName}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <mat-form-field class="example-full-width">
+                                        <mat-label>Select an sub category</mat-label>
+                                        <mat-select (selectionChange)="checkForModelorLeafCategory($event.value)"  formControlName="subCategory" required >
+                                          <mat-option [value]="subcategory" *ngFor="let subcategory of subCategoryList">{{subcategory.catName}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+
+                                </div>
+                            </div>
+                            <!-- Dynamic attribute will be here -->
+                            <div class="row">
+                                <div *ngFor="let attribute of attributeList" class="col-md-12">
+                                   <mat-label>{{attribute.attributeName}}</mat-label> 
+                                   <div *ngIf=" attribute && attribute.attributeType=='input'">
+                                    <mat-form-field class="example-full-width">
+                                    <input matInput  placeholder="dynamic input" type="text">
+                                  </mat-form-field>
+                                  </div>
+                                 <!--now dynamic input fields  -->
+                                 
+                                <div *ngIf=" attribute && attribute.attributeType=='select'">
+                                    <mat-form-field class="example-full-width">
+                                    <input matInput  placeholder="dynamic input" type="text">
+                                  </mat-form-field>
+                                  </div>
+                                <div *ngIf=" attribute && attribute.attributeType=='checkbox'">
+                                    <mat-form-field class="example-full-width">
+                                    <input matInput  placeholder="dynamic input" type="text">
+                                  </mat-form-field>
+                                  </div>
+                                <div *ngIf=" attribute && attribute.attributeType=='radio'">
+                                    <mat-form-field class="example-full-width">
+                                    <input matInput  placeholder="dynamic input" type="text">
+                                  </mat-form-field>
+                                  </div>  
+                                </div> 
+                                
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Adress" type="text">
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="City" type="text">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Price" type="text">
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-raised-button type="submit" class="btn btn-success pull-right">Upload Photos </button>
+                                  </div>
+                                
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <label>Description</label>
+                                  <mat-form-field class="example-full-width">
+                                     <textarea matInput placeholder="Description of product specify here"></textarea>
+                                   </mat-form-field>
+                                    <!-- <div class="form-group">
+  
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                            <textarea class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Add Product</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="#pablo">
+                            <img class="img" src="./assets/img/faces/marc.jpg" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                        <h4 class="card-title">Alec Thompson</h4>
+                        <p class="card-description">
+                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owensâ€™ bed design but the back is...
+                        </p>
+                        <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
